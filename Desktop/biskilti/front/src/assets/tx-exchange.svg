@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="56" y1="56" x2="456" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#059669" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="120" y1="180" x2="392" y2="332" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="56" y="56" width="400" height="400" rx="48" fill="url(#bg)"/>
+  <circle cx="372" cy="170" r="72" fill="#2563EB" fill-opacity="0.06"/>
+  <circle cx="170" cy="356" r="86" fill="#059669" fill-opacity="0.06"/>
+
+  <!-- exchange arrows -->
+  <g stroke="url(#stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M160 220h188"/>
+    <path d="M312 188l36 32-36 32"/>
+    <path d="M352 292H164"/>
+    <path d="M200 260l-36 32 36 32"/>
+  </g>
+
+  <!-- two items cards -->
+  <g>
+    <rect x="124" y="310" width="140" height="96" rx="20" fill="#ffffff" fill-opacity="0.88"/>
+    <rect x="268" y="106" width="160" height="106" rx="20" fill="#ffffff" fill-opacity="0.88"/>
+    <rect x="146" y="334" width="92" height="14" rx="7" fill="#111827" fill-opacity="0.12"/>
+    <rect x="292" y="132" width="108" height="16" rx="8" fill="#111827" fill-opacity="0.12"/>
+    <rect x="292" y="158" width="84" height="12" rx="6" fill="#111827" fill-opacity="0.10"/>
+  </g>
+
+  <!-- subtle shine -->
+  <path d="M112 128c58-46 142-66 232-58" stroke="#ffffff" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round"/>
+</svg>

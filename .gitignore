@@ -1,0 +1,17 @@
+/Documents/NetBeansProjects/EXp/nbproject/private/
+/Documents/NetBeansProjects/EXp/build/
+/Documents/NetBeansProjects/construction/nbproject/private/
+/Documents/NetBeansProjects/construction/build/
+/Documents/NetBeansProjects/ExercicePersonne/nbproject/private/
+/Documents/NetBeansProjects/ExercicePersonne/build/
+/Documents/NetBeansProjects/Personne/nbproject/private/
+/Documents/NetBeansProjects/Personne/build/
+/Documents/NetBeansProjects/REVISION EX/nbproject/private/
+
+# Node.js / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.*
