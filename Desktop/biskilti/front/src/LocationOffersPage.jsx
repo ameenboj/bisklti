@@ -1,8 +1,31 @@
 import "./App.css";
 
+import { useState } from "react";
+import { apiRequest, getCustomerPayload } from "./authClient.js";
 import { rentalItems } from "./locationData.js";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 function LocationOffersPage() {
+  const [actionMessage, setActionMessage] = useState("");
+
+  const bookRental = async (item) => {
+    setActionMessage("Creation du booking...");
+
+    try {
+      const data = await apiRequest("/api/bookings", {
+        method: "POST",
+        body: JSON.stringify({
+          rental_title: item.title,
+          notes: item.text,
+          ...getCustomerPayload(),
+        }),
+      });
+      setActionMessage(data.message);
+    } catch (error) {
+      setActionMessage(error.message);
+    }
+  };
+
   return (
     <main className="site-shell location-detail-shell">
       <header className="detail-topbar">
@@ -14,7 +37,16 @@ function LocationOffersPage() {
           <a href="/location.html">LOCATION</a>
           <a href="/location-comment-ca-marche.html">COMMENT CA MARCHE</a>
           <a href="mailto:contact@bisklet.com">CONTACT</a>
+          <AdminNavLink />
         </nav>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+        </div>
       </header>
 
       <section className="detail-hero">
@@ -27,6 +59,7 @@ function LocationOffersPage() {
       </section>
 
       <section className="offers-detail-grid">
+        {actionMessage && <div className="action-status">{actionMessage}</div>}
         {rentalItems.map((item) => (
           <article className="offer-detail-card" key={item.title}>
             <div className="offer-detail-image">
@@ -40,9 +73,13 @@ function LocationOffersPage() {
                   <li key={detail}>{detail}</li>
                 ))}
               </ul>
-              <a className="primary-link accueil-button" href="mailto:contact@bisklet.com">
+              <button
+                className="primary-link accueil-button"
+                type="button"
+                onClick={() => bookRental(item)}
+              >
                 Book maintenant
-              </a>
+              </button>
             </div>
           </article>
         ))}

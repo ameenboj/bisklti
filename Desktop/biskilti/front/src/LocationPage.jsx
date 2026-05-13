@@ -2,6 +2,7 @@ import "./App.css";
 
 import heroImage from "./assets/hero.png";
 import { benefits, locationSteps, rentalItems } from "./locationData.js";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 function LocationPage() {
   return (
@@ -35,11 +36,20 @@ function LocationPage() {
           <a href="/location.html">LOCATION</a>
           <a href="/boutique.html">BOUTIQUE</a>
           <a href="/my-account.html">MY ACCOUNT</a>
+          <AdminNavLink />
         </nav>
 
-        <a className="booking-btn" href="/location-offres.html">
-          Booking
-        </a>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+          <a className="booking-btn" href="/location-offres.html">
+            Booking
+          </a>
+        </div>
       </header>
 
       <section className="location-hero">

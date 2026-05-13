@@ -11,6 +11,7 @@ import catAdsImage from "./assets/cat-ads.svg";
 import featSecureImage from "./assets/feat-secure.svg";
 import featFastImage from "./assets/feat-fast.svg";
 import featLocalImage from "./assets/feat-local.svg";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 const transactions = [
   {
@@ -125,11 +126,20 @@ function App() {
           <a href="/location.html">LOCATION</a>
           <a href="/boutique.html">BOUTIQUE</a>
           <a href="/my-account.html">MY ACCOUNT</a>
+          <AdminNavLink />
         </nav>
 
-        <a className="booking-btn" href="#transactions">
-          Booking
-        </a>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+          <a className="booking-btn" href="#transactions">
+            Booking
+          </a>
+        </div>
       </header>
 
       <section className="hero" id="hero">
@@ -246,10 +256,10 @@ function App() {
           <h2>Pret a commencer ?</h2>
           <p>Rejoignez la communaute Bisklet aujourd'hui</p>
           <div className="cta-buttons">
-            <a href="#" className="primary-link btn-premium">
+            <a href="/register.html" className="primary-link btn-premium">
               Creer un compte
             </a>
-            <a href="#" className="secondary-link btn-premium">
+            <a href="/location-offres.html" className="secondary-link btn-premium">
               Nous contacter
             </a>
           </div>

@@ -8,6 +8,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      "/api": "http://127.0.0.1:8000",
+    },
+  },
   build: {
     rollupOptions: {
       input: {
@@ -15,7 +20,11 @@ export default defineConfig({
         accueil: resolve(__dirname, "accueil.html"),
         location: resolve(__dirname, "location.html"),
         boutique: resolve(__dirname, "boutique.html"),
+        messagerie: resolve(__dirname, "messagerie.html"),
         myAccount: resolve(__dirname, "my-account.html"),
+        adminDashboard: resolve(__dirname, "admin-dashboard.html"),
+        login: resolve(__dirname, "login.html"),
+        register: resolve(__dirname, "register.html"),
         boutiqueProduits: resolve(__dirname, "boutique-produits.html"),
         boutiqueGuide: resolve(__dirname, "boutique-guide.html"),
         locationOffres: resolve(__dirname, "location-offres.html"),

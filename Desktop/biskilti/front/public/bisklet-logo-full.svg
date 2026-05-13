@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Bisklet</title>
+  <desc id="desc">Black and electric blue Bisklet bicycle shop logo.</desc>
+  <rect width="512" height="512" fill="#000000"/>
+  <g fill="none" stroke="#0757d8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M121 129v177c0 30 24 54 54 54h162c30 0 54-24 54-54V129" stroke-width="8"/>
+    <path d="M126 79h260c9 0 16 7 16 16v31H110V95c0-9 7-16 16-16Z" fill="#0757d8" stroke="none"/>
+    <path d="M111 120c5 19 20 32 39 32 22 0 38-16 42-41V97h20v14c4 25 20 41 42 41s38-16 42-41V97h20v14c4 25 20 41 42 41 19 0 35-13 39-32" stroke-width="17"/>
+    <path d="M116 119c5 16 18 27 35 27 20 0 34-15 37-36V96h28v14c3 21 17 36 38 36s35-15 38-36V96h28v14c3 21 17 36 37 36 17 0 31-11 36-27" stroke="#000000" stroke-width="7"/>
+    <circle cx="178" cy="274" r="40" stroke-width="8"/>
+    <circle cx="333" cy="274" r="40" stroke-width="8"/>
+    <path d="M178 274h78m77 0-42-98h-75l40 98m0 0 49-98M216 176h-31m106 0 34-34h31c11 0 20 9 20 20s-9 20-20 20" stroke-width="10"/>
+    <path d="M178 234v80M138 274h80M150 246l56 56M206 246l-56 56M333 234v80M293 274h80M305 246l56 56M361 246l-56 56" stroke-width="4"/>
+  </g>
+  <text x="256" y="430" fill="#0757d8" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800" text-anchor="middle" letter-spacing="1">Bisklet</text>
+</svg>

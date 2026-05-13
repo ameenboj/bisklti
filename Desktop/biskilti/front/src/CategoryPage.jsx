@@ -1,9 +1,30 @@
 import "./App.css";
 
+import { useState } from "react";
+import { apiRequest } from "./authClient.js";
 import { categories } from "./categoryData.js";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 function CategoryPage({ type }) {
   const category = categories[type];
+  const [actionMessage, setActionMessage] = useState("");
+
+  const requestInfo = async () => {
+    setActionMessage("Envoi de la demande...");
+
+    try {
+      const data = await apiRequest("/api/contact-requests", {
+        method: "POST",
+        body: JSON.stringify({
+          topic: category.title,
+          message: category.text,
+        }),
+      });
+      setActionMessage(data.message);
+    } catch (error) {
+      setActionMessage(error.message);
+    }
+  };
 
   return (
     <main className="site-shell category-detail-shell">
@@ -16,7 +37,16 @@ function CategoryPage({ type }) {
           <a href="/">HOME</a>
           <a href="/location.html">LOCATION</a>
           <a href="/accueil.html">ACCUEIL</a>
+          <AdminNavLink />
         </nav>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+        </div>
       </header>
 
       <section className="category-detail-hero">
@@ -24,9 +54,14 @@ function CategoryPage({ type }) {
           <span className="section-kicker">{category.kicker}</span>
           <h1>{category.title}</h1>
           <p>{category.text}</p>
-          <a className="primary-link accueil-button" href="mailto:contact@bisklet.com">
+          <button
+            className="primary-link accueil-button"
+            type="button"
+            onClick={requestInfo}
+          >
             Demander plus d'informations
-          </a>
+          </button>
+          {actionMessage && <div className="action-status">{actionMessage}</div>}
         </div>
         <div className="category-detail-image">
           <img src={category.image} alt={category.title} loading="eager" />

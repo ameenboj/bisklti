@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { boutiqueHighlights, buyingGuide } from "./boutiqueData.js";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 function BoutiqueGuidePage() {
   return (
@@ -14,7 +15,16 @@ function BoutiqueGuidePage() {
           <a href="/boutique.html">BOUTIQUE</a>
           <a href="/boutique-produits.html">PRODUITS</a>
           <a href="/location.html">LOCATION</a>
+          <AdminNavLink />
         </nav>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+        </div>
       </header>
 
       <section className="detail-hero">

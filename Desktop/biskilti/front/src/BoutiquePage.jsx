@@ -1,20 +1,139 @@
 import "./App.css";
 
+import { useMemo, useState } from "react";
 import {
+  boutiqueBudgetOptions,
+  boutiqueFilterGroups,
   boutiqueHighlights,
   boutiqueProducts,
   buyingGuide,
 } from "./boutiqueData.js";
-
-const boutiqueStats = [
-  { value: "-14%", label: "promos selection boutique" },
-  { value: "4.8/5", label: "avis clients moyens" },
-  { value: "DT", label: "prix en dinar tunisien" },
-];
+import { AdminNavLink } from "./SessionNav.jsx";
+import { useBoutiqueProducts } from "./useBoutiqueProducts.js";
 
 const featuredProduct = boutiqueProducts[0];
 
+function getDiscountValue(discount) {
+  return Number(String(discount || "").replace("%", "").replace("-", "")) || 0;
+}
+
+function productMatchesBudget(product, budget) {
+  if (budget === "under-200") {
+    return product.priceNumber < 200;
+  }
+
+  if (budget === "200-1000") {
+    return product.priceNumber >= 200 && product.priceNumber <= 1000;
+  }
+
+  if (budget === "1000-2500") {
+    return product.priceNumber > 1000 && product.priceNumber <= 2500;
+  }
+
+  if (budget === "over-2500") {
+    return product.priceNumber > 2500;
+  }
+
+  return true;
+}
+
 function BoutiquePage() {
+  const [actionMessage, setActionMessage] = useState("");
+  const [openingProduct, setOpeningProduct] = useState(null);
+  const { listingsStatus, products } = useBoutiqueProducts();
+  const highlightedProductId = useMemo(
+    () => new URLSearchParams(window.location.search).get("annonce"),
+    [],
+  );
+  const [filters, setFilters] = useState({
+    category: "Tous",
+    useCase: "Tous",
+    availability: "Tous",
+    budget: "all",
+    query: "",
+    sort: "promo",
+  });
+
+  const filteredProducts = useMemo(() => {
+    const query = filters.query.trim().toLowerCase();
+
+    return products
+      .filter((product) => {
+        const matchesGroups = boutiqueFilterGroups.every((group) => {
+          const selectedValue = filters[group.key];
+          return selectedValue === "Tous" || product[group.key] === selectedValue;
+        });
+
+        const matchesSearch =
+          !query ||
+          [product.title, product.category, product.text, ...product.tags]
+            .join(" ")
+            .toLowerCase()
+            .includes(query);
+
+        return (
+          matchesGroups &&
+          matchesSearch &&
+          productMatchesBudget(product, filters.budget)
+        );
+      })
+      .sort((first, second) => {
+        if (filters.sort === "promo" && first.isListing !== second.isListing) {
+          return first.isListing ? -1 : 1;
+        }
+
+        if (filters.sort === "price-low") {
+          return first.priceNumber - second.priceNumber;
+        }
+
+        if (filters.sort === "price-high") {
+          return second.priceNumber - first.priceNumber;
+        }
+
+        return getDiscountValue(second.discount) - getDiscountValue(first.discount);
+      });
+  }, [filters, products]);
+
+  const updateFilter = (key, value) => {
+    setFilters((current) => ({ ...current, [key]: value }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      category: "Tous",
+      useCase: "Tous",
+      availability: "Tous",
+      budget: "all",
+      query: "",
+      sort: "promo",
+    });
+  };
+
+  const openProductMessage = (product) => {
+    const messageProduct = {
+      id: product.id,
+      title: product.title,
+      category: product.category,
+      image: product.image,
+      price: product.price,
+      stock: product.stock,
+      badge: product.badge,
+    };
+
+    localStorage.setItem(
+      "bisklet_pending_message_product",
+      JSON.stringify(messageProduct),
+    );
+    setOpeningProduct(product);
+    setActionMessage(`Ouverture de la messagerie pour ${product.title}...`);
+
+    window.setTimeout(() => {
+      window.location.assign(
+        `/messagerie.html?product=${encodeURIComponent(product.id)}`,
+      );
+    }, 850);
+  };
+
   return (
     <main className="site-shell boutique-shell">
       <div className="contact-bar">
@@ -46,84 +165,60 @@ function BoutiquePage() {
           <a href="/location.html">LOCATION</a>
           <a href="/boutique.html">BOUTIQUE</a>
           <a href="/my-account.html">MY ACCOUNT</a>
+          <AdminNavLink />
         </nav>
 
-        <a className="booking-btn" href="/location-offres.html">
-          Booking
-        </a>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+          <a className="booking-btn" href="/location-offres.html">
+            Booking
+          </a>
+        </div>
       </header>
-
-      <section className="boutique-hero boutique-hero-redesign">
-        <div className="boutique-hero-copy">
-          <span className="section-kicker">Boutique velo premium</span>
-          <h1>
-            Prix clairs, promos visibles et equipements prets a rouler.
-          </h1>
-          <p>
-            Comparez les velos, e-bikes et pieces avec des prix en DT, remises,
-            avis clients, disponibilite et photos produits lisibles comme une
-            vraie boutique specialisee.
-          </p>
-          <div className="hero-cta">
-            <a
-              className="primary-link accueil-button"
-              href="/boutique-produits.html"
-            >
-              Voir les produits
-            </a>
-            <a
-              className="secondary-link accueil-button"
-              href="/boutique-guide.html"
-            >
-              Guide d'achat
-            </a>
-          </div>
-          <div className="boutique-stats">
-            {boutiqueStats.map((stat) => (
-              <div className="boutique-stat" key={stat.value}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="boutique-hero-gallery">
-          <img
-            className="boutique-main-bike"
-            src={featuredProduct.image}
-            alt={featuredProduct.title}
-          />
-          <div className="boutique-price-float one">
-            <span>{featuredProduct.discount}</span>
-            <strong>{featuredProduct.price}</strong>
-          </div>
-          <div className="boutique-price-float two">
-            <span>{featuredProduct.rating}</span>
-            <strong>{featuredProduct.reviews}</strong>
-          </div>
-        </div>
-      </section>
 
       <section className="boutique-products" id="boutique-products">
         <div className="boutique-section-heading">
           <div>
-            <span className="section-kicker">Collection</span>
+            <span className="section-kicker">Shop</span>
             <h2>Catalogue boutique</h2>
           </div>
           <p>
-            Inspirez-vous d'une boutique velo moderne : prix fort, prix promo,
-            avis, disponibilite et appel a l'action sont visibles en un regard.
+            Filtrez rapidement par categorie, usage, budget et disponibilite.
+            Chaque fiche affiche la remise directement sur la photo.
           </p>
         </div>
+        {actionMessage && <div className="action-status">{actionMessage}</div>}
+        {listingsStatus === "error" && (
+          <div className="action-status">
+            Annonces publiees indisponibles pour le moment.
+          </div>
+        )}
+        {openingProduct && (
+          <div className="front-alert" role="status" aria-live="assertive">
+            <div className="front-alert-card">
+              <span>Messagerie</span>
+              <h2>Conversation ouverte</h2>
+              <p>
+                Vous allez discuter avec le proprietaire pour{" "}
+                <strong>{openingProduct.title}</strong>.
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="boutique-featured-product">
           <div className="featured-copy">
             <span>Produit phare</span>
             <h2>{featuredProduct.title}</h2>
             <p>
-              Notre selection met en avant les produits les plus demandes avec
-              un prix clair en dinar tunisien, une remise visible et des avis
-              clients pour aider la decision d'achat.
+              Selection mise en avant avec photo produit, remise claire, prix
+              final en DT, disponibilite et avis clients pour aider la decision
+              d'achat.
             </p>
             <div className="featured-price-row">
               <strong>{featuredProduct.price}</strong>
@@ -138,50 +233,143 @@ function BoutiquePage() {
             </div>
           </div>
           <div className="featured-media">
+            <span className="photo-discount-badge">{featuredProduct.discount}</span>
             <img src={featuredProduct.image} alt={featuredProduct.title} />
           </div>
         </div>
 
-        <div className="section-header boutique-mobile-title">
-          <span className="section-kicker">Collection</span>
-          <h2>Produits et services disponibles</h2>
-          <p>
-            Une structure claire pour comparer les solutions Bisklet et choisir
-            le bon equipement.
-          </p>
-        </div>
+        <div className="shop-layout">
+          <aside className="shop-filter-sidebar" aria-label="Filtres produits">
+            <div className="filter-sidebar-head">
+              <div>
+                <span className="section-kicker">Filtres</span>
+                <h3>Affiner la boutique</h3>
+              </div>
+              <button type="button" onClick={resetFilters}>
+                Reset
+              </button>
+            </div>
 
-        <div className="boutique-product-grid">
-          {boutiqueProducts.map((product) => (
-            <article className="boutique-product-card" key={product.title}>
-              <div className="boutique-product-image">
-                <img src={product.image} alt={product.title} loading="lazy" />
+            <label className="filter-search">
+              <span>Recherche produit</span>
+              <input
+                type="search"
+                value={filters.query}
+                onChange={(event) => updateFilter("query", event.target.value)}
+                placeholder="E-bike, casque, moteur..."
+              />
+            </label>
+
+            {boutiqueFilterGroups.map((group) => (
+              <div className="filter-group" key={group.key}>
+                <h4>{group.label}</h4>
+                <label className="filter-option">
+                  <input
+                    checked={filters[group.key] === "Tous"}
+                    name={group.key}
+                    onChange={() => updateFilter(group.key, "Tous")}
+                    type="radio"
+                  />
+                  <span>Tous</span>
+                </label>
+                {group.options.map((option) => (
+                  <label className="filter-option" key={option}>
+                    <input
+                      checked={filters[group.key] === option}
+                      name={group.key}
+                      onChange={() => updateFilter(group.key, option)}
+                      type="radio"
+                    />
+                    <span>{option}</span>
+                  </label>
+                ))}
               </div>
-              <div className="boutique-product-copy">
-                <span>{product.category}</span>
-                <h3>{product.title}</h3>
-                <div className="product-review-row">
-                  <strong>{product.rating}</strong>
-                  <small>{product.reviews}</small>
-                </div>
-                <p>{product.text}</p>
-                <div className="product-price-row">
-                  <strong className="product-price">{product.price}</strong>
-                  <del>{product.oldPrice}</del>
-                  <b>{product.discount}</b>
-                </div>
-                <div className="product-stock">{product.stock}</div>
-                <div className="product-tags">
-                  {product.tags.map((tag) => (
-                    <small key={tag}>{tag}</small>
-                  ))}
-                </div>
-                <a className="product-buy-button" href="/boutique-produits.html">
-                  Voir l'offre
-                </a>
+            ))}
+
+            <div className="filter-group">
+              <h4>Budget</h4>
+              {boutiqueBudgetOptions.map((option) => (
+                <label className="filter-option" key={option.value}>
+                  <input
+                    checked={filters.budget === option.value}
+                    name="budget"
+                    onChange={() => updateFilter("budget", option.value)}
+                    type="radio"
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </aside>
+
+          <div className="shop-results">
+            <div className="shop-toolbar">
+              <div>
+                <strong>{filteredProducts.length} produits / annonces trouves</strong>
+                <span>Photos, promos et disponibilite en un regard.</span>
               </div>
-            </article>
-          ))}
+              <label>
+                <span>Trier</span>
+                <select
+                  value={filters.sort}
+                  onChange={(event) => updateFilter("sort", event.target.value)}
+                >
+                  <option value="promo">Meilleures promos</option>
+                  <option value="price-low">Prix croissant</option>
+                  <option value="price-high">Prix decroissant</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="boutique-product-grid">
+              {filteredProducts.map((product) => (
+                <article
+                  className={`boutique-product-card${
+                    product.id === highlightedProductId ? " is-highlighted" : ""
+                  }`}
+                  key={product.id}
+                >
+                  <div className="boutique-product-image">
+                    <span className="photo-discount-badge">
+                      {product.discount}
+                    </span>
+                    <span className="product-photo-badge">{product.badge}</span>
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="boutique-product-copy">
+                    <span>{product.category}</span>
+                    <h3>{product.title}</h3>
+                    <div className="product-review-row">
+                      <strong>{product.rating}</strong>
+                      <small>{product.reviews}</small>
+                    </div>
+                    <p>{product.text}</p>
+                    <div className="product-price-row">
+                      <strong className="product-price">{product.price}</strong>
+                      {product.oldPrice && <del>{product.oldPrice}</del>}
+                    </div>
+                    <div className="product-stock">{product.stock}</div>
+                    <div className="product-tags">
+                      {(product.tags || []).map((tag) => (
+                        <small key={tag}>{tag}</small>
+                      ))}
+                    </div>
+                    <button
+                      className="product-buy-button"
+                      type="button"
+                      onClick={() => openProductMessage(product)}
+                    >
+                      {product.cta || "Demander disponibilite"}
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

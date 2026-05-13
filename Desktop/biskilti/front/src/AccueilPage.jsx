@@ -1,5 +1,7 @@
 import "./App.css";
 
+import { AdminNavLink } from "./SessionNav.jsx";
+
 const desertImage = "/gallery/ebike-desert-rider.jpg";
 const lakeSunsetImage = "/gallery/ebike-lake-sunset.jpg";
 const motorImage = "/gallery/ebike-motor-repair.jpg";
@@ -113,11 +115,20 @@ function AccueilPage() {
           <a href="/location.html">LOCATION</a>
           <a href="/boutique.html">BOUTIQUE</a>
           <a href="/my-account.html">MY ACCOUNT</a>
+          <AdminNavLink />
         </nav>
 
-        <a className="booking-btn" href="#contact-accueil">
-          Booking
-        </a>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+          <a className="booking-btn" href="#contact-accueil">
+            Booking
+          </a>
+        </div>
       </header>
 
       <section className="accueil-hero">

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Bisklet logo mark</title>
+  <desc id="desc">Black and electric blue bicycle storefront icon for Bisklet.</desc>
+  <rect width="512" height="512" fill="#000000"/>
+  <g fill="none" stroke="#0757d8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M94 147v211c0 36 29 65 65 65h194c36 0 65-29 65-65V147" stroke-width="13"/>
+    <path d="M101 72h310c11 0 19 9 19 19v38H82V91c0-10 9-19 19-19Z" fill="#0757d8" stroke="none"/>
+    <path d="M83 122c6 24 24 39 47 39 26 0 46-19 50-49V95h24v17c5 30 24 49 51 49s46-19 50-49V95h24v17c5 30 24 49 51 49 23 0 42-15 47-39" stroke-width="21"/>
+    <path d="M89 120c6 20 22 32 42 32 24 0 41-18 45-43V94h34v15c4 25 21 43 46 43s42-18 45-43V94h34v15c4 25 21 43 45 43 20 0 36-12 42-32" stroke="#000000" stroke-width="9"/>
+    <circle cx="163" cy="318" r="49" stroke-width="13"/>
+    <circle cx="349" cy="318" r="49" stroke-width="13"/>
+    <path d="M163 318h93m93 0-51-118h-89l47 118m0 0 59-118M209 200h-37m126 0 41-41h37c13 0 24 11 24 24s-11 24-24 24" stroke-width="16"/>
+    <path d="M163 270v96M115 318h96M129 284l68 68M197 284l-68 68M349 270v96M301 318h96M315 284l68 68M383 284l-68 68" stroke-width="5"/>
+  </g>
+</svg>

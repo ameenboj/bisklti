@@ -1,13 +1,20 @@
 #!/usr/bin/env php
 <?php
 
+$vendorAutoload = __DIR__.'/vendor/autoload.php';
+
+if (! file_exists($vendorAutoload)) {
+    fwrite(STDERR, "Laravel vendor is not installed. Install PHP 8.2+, run `composer install`, configure MySQL in `.env`, then run `php artisan migrate --seed`.\n");
+    exit(1);
+}
+
 use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 
 define('LARAVEL_START', microtime(true));
 
 // Register the Composer autoloader...
-require __DIR__.'/vendor/autoload.php';
+require $vendorAutoload;
 
 // Bootstrap Laravel and handle the command...
 /** @var Application $app */

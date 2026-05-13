@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { benefits, locationSteps } from "./locationData.js";
+import { AdminNavLink } from "./SessionNav.jsx";
 
 function LocationHowPage() {
   return (
@@ -14,7 +15,16 @@ function LocationHowPage() {
           <a href="/location.html">LOCATION</a>
           <a href="/location-offres.html">VOIR LES OFFRES</a>
           <a href="mailto:contact@bisklet.com">CONTACT</a>
+          <AdminNavLink />
         </nav>
+        <div className="top-actions">
+          <a className="login-link" href="/login.html">
+            Login
+          </a>
+          <a className="register-link" href="/register.html">
+            Register
+          </a>
+        </div>
       </header>
 
       <section className="detail-hero">
