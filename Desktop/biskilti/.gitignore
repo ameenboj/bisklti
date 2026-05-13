@@ -1,0 +1,4 @@
+# Repo-root ignores (front/ and back/ have their own .gitignore)
+
+# Local dev logs
+*.log
