@@ -14,71 +14,78 @@ import featLocalImage from "./assets/feat-local.svg";
 
 const transactions = [
   {
-    icon: "💼",
+    icon: "V",
     title: "Vendre",
     image: txSellImage,
     description:
-      "Publiez rapidement votre vélo, pièces ou accessoires. Touchez des acheteurs sincères et concluez en confiance.",
+      "Publiez rapidement votre velo, pieces ou accessoires. Touchez des acheteurs serieux et concluez en confiance.",
     action: "Vendre maintenant",
+    href: "/vendre.html",
   },
   {
-    icon: "🛒",
+    icon: "A",
     title: "Acheter",
     image: txBuyImage,
     description:
-      "Explorez des milliers d'offres. Filtrez par prix, localisation et état. Trouvez exactement ce qu'il vous faut.",
+      "Explorez des offres qualifiees. Filtrez par prix, localisation et etat pour trouver exactement ce qu'il vous faut.",
     action: "Explorer",
+    href: "/explorer.html",
   },
   {
-    icon: "🔄",
-    title: "Échanger",
+    icon: "E",
+    title: "Echanger",
     image: txExchangeImage,
     description:
-      "Échangez directement avec d'autres utilisateurs. Libre et sans frais. Transformez vos anciens équipements.",
-    action: "Proposer un échange",
+      "Echangez directement avec d'autres utilisateurs. Transformez vos anciens equipements en nouvelles opportunites.",
+    action: "Proposer un echange",
+    href: "/echange.html",
   },
 ];
 
 const categories = [
   {
-    title: "Vélos & VAE",
-    description: "VTT, vélos de ville, électriques et modèles premium.",
+    title: "Velos & VAE",
+    description: "VTT, velos de ville, electriques et modeles premium.",
     image: catBikesImage,
+    href: "/categorie-velos.html",
   },
   {
-    title: "Pièces de rechange",
+    title: "Pieces de rechange",
     description: "Transmission, freins, pneus, batteries et consommables.",
     image: catPartsImage,
+    href: "/categorie-pieces.html",
   },
   {
     title: "Accessoires",
-    description: "Casques, antivols, sacoches, éclairage et équipement.",
+    description: "Casques, antivols, sacoches, eclairage et equipement.",
     image: catAccessoriesImage,
+    href: "/categorie-accessoires.html",
   },
   {
     title: "Petites annonces",
-    description: "Tous types d'annonces vélo et mobilité douce.",
+    description: "Tous types d'annonces velo et mobilite douce.",
     image: catAdsImage,
+    href: "/categorie-annonces.html",
   },
 ];
 
 const features = [
   {
-    title: "Sécurisé",
+    title: "Securise",
     description:
-      "Messagerie protégée, vérification des utilisateurs et paiement sécurisé.",
+      "Messagerie protegee, verification des utilisateurs et parcours d'achat plus rassurant.",
     image: featSecureImage,
   },
   {
     title: "Rapide",
     description:
-      "Publiez en 2 minutes, trouvez en quelques secondes, échangez en quelques messages.",
+      "Publiez en quelques minutes, trouvez rapidement et contactez le bon vendeur sans complexite.",
     image: featFastImage,
   },
   {
     title: "Local",
     description:
-      "Géolocalisation intégrée, trouvez les vendeurs près de chez vous.",
+      "Recherche locale pour identifier les vendeurs, ateliers et offres proches de chez vous.",
     image: featLocalImage,
   },
 ];
@@ -91,33 +98,33 @@ function App() {
 
       <div className="contact-bar">
         <div className="contact-content">
-          <span className="contact-item">📞 +216 99 11 00 12</span>
-          <span className="contact-item">✈️ Ennasr 2</span>
+          <span className="contact-item">Tel: +216 99 11 00 12</span>
+          <span className="contact-item">Adresse: Ennasr 2</span>
         </div>
         <div className="social-icons">
           <a href="#" aria-label="Facebook">
             f
           </a>
           <a href="#" aria-label="Instagram">
-            📷
+            in
           </a>
           <a href="#" aria-label="Email">
-            ✉️
+            @
           </a>
         </div>
       </div>
 
       <header className="topbar">
-        <a className="brand" href="#hero" aria-label="Bisklet accueil">
-          <span className="brand-logo">🚴</span>
+        <a className="brand" href="/" aria-label="Bisklet accueil">
+          <span className="brand-logo">B</span>
           <span className="brand-name">Bisklet</span>
         </a>
 
         <nav className="topnav" aria-label="Navigation principale">
-          <a href="#hero">ACCUEIL</a>
-          <a href="#categories">LOCATION</a>
-          <a href="#features">BOUTIQUE</a>
-          <a href="#contact">MY ACCOUNT</a>
+          <a href="/accueil.html">ACCUEIL</a>
+          <a href="/location.html">LOCATION</a>
+          <a href="/boutique.html">BOUTIQUE</a>
+          <a href="/my-account.html">MY ACCOUNT</a>
         </nav>
 
         <a className="booking-btn" href="#transactions">
@@ -127,10 +134,10 @@ function App() {
 
       <section className="hero" id="hero">
         <div className="hero-content">
-          <h1>La plateforme de confiance pour vélos et mobilité douce</h1>
+          <h1>La plateforme professionnelle pour velos et mobilite douce</h1>
           <p>
-            Achetez, vendez et échangez en toute confiance. Simple, rapide et
-            sécurisé.
+            Achetez, vendez et echangez en toute confiance. Simple, rapide et
+            securise.
           </p>
           <div className="hero-cta">
             <a className="primary-link btn-premium" href="#transactions">
@@ -155,7 +162,7 @@ function App() {
         <div className="section-header">
           <h2>Choisissez votre action</h2>
           <p>
-            Bisklet s'adapte à votre besoin : vendre, acheter ou échanger
+            Bisklet s'adapte a votre besoin : vendre, acheter ou echanger
             simplement.
           </p>
         </div>
@@ -174,8 +181,8 @@ function App() {
               <div className="tx-icon">{tx.icon}</div>
               <h3>{tx.title}</h3>
               <p>{tx.description}</p>
-              <a href="#" className="tx-button btn-premium">
-                {tx.action} →
+              <a href={tx.href} className="tx-button btn-premium">
+                {tx.action}
               </a>
             </article>
           ))}
@@ -184,24 +191,28 @@ function App() {
 
       <section className="categories-section" id="categories">
         <div className="section-header">
-          <h2>Explorez nos catégories</h2>
-          <p>Tout ce dont vous avez besoin pour la mobilité douce</p>
+          <h2>Explorez nos categories</h2>
+          <p>Tout ce dont vous avez besoin pour la mobilite douce</p>
         </div>
 
         <div className="categories-grid">
           {categories.map((cat) => (
-            <div className="category-card card-hover" key={cat.title}>
+            <a
+              className="category-card card-hover"
+              href={cat.href}
+              key={cat.title}
+            >
               <div className="category-icon">
                 <img
                   className="category-photo"
                   src={cat.image}
-                  alt={`Catégorie ${cat.title}`}
+                  alt={`Categorie ${cat.title}`}
                   loading="lazy"
                 />
               </div>
               <h3>{cat.title}</h3>
               <p>{cat.description}</p>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -209,7 +220,7 @@ function App() {
       <section className="features-section" id="features">
         <div className="section-header">
           <h2>Pourquoi Bisklet ?</h2>
-          <p>Une plateforme pensée pour vous</p>
+          <p>Une plateforme pensee pour vous</p>
         </div>
 
         <div className="features-grid">
@@ -232,11 +243,11 @@ function App() {
 
       <section className="cta-section" id="contact">
         <div className="cta-content">
-          <h2>Prêt à commencer ?</h2>
-          <p>Rejoignez la communauté Bisklet aujourd'hui</p>
+          <h2>Pret a commencer ?</h2>
+          <p>Rejoignez la communaute Bisklet aujourd'hui</p>
           <div className="cta-buttons">
             <a href="#" className="primary-link btn-premium">
-              Créer un compte
+              Creer un compte
             </a>
             <a href="#" className="secondary-link btn-premium">
               Nous contacter
@@ -248,10 +259,10 @@ function App() {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h4>À propos</h4>
+            <h4>A propos</h4>
             <a href="#">Qui sommes-nous</a>
             <a href="#">Blog</a>
-            <a href="#">Carrières</a>
+            <a href="#">Carrieres</a>
           </div>
           <div className="footer-section">
             <h4>Support</h4>
@@ -260,14 +271,14 @@ function App() {
             <a href="#">FAQ</a>
           </div>
           <div className="footer-section">
-            <h4>Légal</h4>
+            <h4>Legal</h4>
             <a href="#">Conditions</a>
-            <a href="#">Confidentialité</a>
+            <a href="#">Confidentialite</a>
             <a href="#">Cookies</a>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 Bisklet. Tous droits réservés.</p>
+          <p>&copy; 2024 Bisklet. Tous droits reserves.</p>
         </div>
       </footer>
     </main>
